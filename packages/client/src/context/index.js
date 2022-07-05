@@ -16,7 +16,7 @@ export const Provider = ({ children }) => {
   const [submissions, setSubmissions] = useState([]);
 
   const updateBalance = async (newBalance) => {
-    await fetch("/user", {
+    await fetch("https://lionfish-app-dqb3d.ondigitalocean.app/user", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const Provider = ({ children }) => {
   };
 
   const recordSubmission = async (user, type, amount) => {
-    await fetch("/transaction", {
+    await fetch("https://lionfish-app-dqb3d.ondigitalocean.app/transaction", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,9 @@ export const Provider = ({ children }) => {
   };
 
   const getSubmissions = async () => {
-    const submissions = await fetch(`/transaction?user=${currentUser?.name}`);
+    const submissions = await fetch(
+      `https://lionfish-app-dqb3d.ondigitalocean.app/transaction?user=${currentUser?.name}`
+    );
     const res = await submissions.json();
     setSubmissions(res.content);
   };
@@ -74,7 +76,7 @@ export const Provider = ({ children }) => {
         password
       );
       if (user) {
-        await fetch("/user", {
+        await fetch("https://lionfish-app-dqb3d.ondigitalocean.app/user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -107,7 +109,9 @@ export const Provider = ({ children }) => {
 
     (async () => {
       if (auth.currentUser) {
-        const response = await fetch(`/user?uid=${auth.currentUser.uid}`);
+        const response = await fetch(
+          `https://lionfish-app-dqb3d.ondigitalocean.app/user?uid=${auth.currentUser.uid}`
+        );
         const info = await response.json();
         const { uid, email } = auth.currentUser;
 
@@ -118,7 +122,9 @@ export const Provider = ({ children }) => {
     })();
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const response = await fetch(`/user?uid=${user.uid}`);
+        const response = await fetch(
+          `https://lionfish-app-dqb3d.ondigitalocean.app/user?uid=${user.uid}`
+        );
         const info = await response.json();
         const { uid, email } = user;
         setCurrentUser({ uid, email, ...info.content });
