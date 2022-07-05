@@ -20,14 +20,12 @@ function CreateAccount() {
     return true;
   }
 
-  function handleCreate() {
-    console.log(name, email, password);
+  async function handleCreate() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    const user = { name, email, password, balance: 0 };
-    ctx.setUsers([...ctx.users, user]);
-    ctx.setCurrentUser(user);
+
+    await ctx.register(name, email, password);
     setShow(false);
   }
 

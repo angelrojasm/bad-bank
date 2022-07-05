@@ -24,11 +24,13 @@ function Withdraw() {
     return true;
   }
 
-  function handleWithdraw() {
+  async function handleWithdraw() {
     if (!validateWithdraw()) return;
 
-    ctx.updateBalance(ctx.currentUser.balance - Number(amount));
-    ctx.recordSubmission(ctx.currentUser.name, "Withdraw", amount);
+    await Promise.all([
+      ctx.updateBalance(ctx.currentUser.balance - Number(amount)),
+      ctx.recordSubmission(ctx.currentUser.name, "Withdrawal", amount),
+    ]);
     setShow(false);
   }
 
@@ -36,8 +38,6 @@ function Withdraw() {
     setAmount("");
     setShow(true);
   }
-
-  if (ctx?.currentUser === null) return <Redirect to='/login' />;
 
   return (
     <Card

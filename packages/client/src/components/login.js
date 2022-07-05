@@ -19,15 +19,13 @@ function Login() {
     return true;
   }
 
-  function handleLogin() {
+  async function handleLogin() {
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
 
-    let user = ctx.users.filter(
-      (user) => user.email === email && user.password === password
-    );
-    if (validate(user.length, "Credentials don't match")) {
-      ctx.setCurrentUser(user[0]);
+    const user = await ctx.logIn(email, password);
+
+    if (validate(user, "Credentials don't match")) {
       history.push("/");
     } else return;
   }

@@ -19,11 +19,14 @@ function Deposit() {
     return true;
   }
 
-  function handleDeposit() {
+  async function handleDeposit() {
     if (!validateDeposit()) return;
 
-    ctx.updateBalance(ctx.currentUser.balance + Number(amount));
-    ctx.recordSubmission(ctx.currentUser.name, "Deposit", amount);
+    await Promise.all([
+      ctx.updateBalance(ctx.currentUser.balance + Number(amount)),
+      ctx.recordSubmission(ctx.currentUser.name, "Deposit", amount),
+    ]);
+
     setShow(false);
   }
 
@@ -31,8 +34,6 @@ function Deposit() {
     setAmount("");
     setShow(true);
   }
-
-  if (ctx?.currentUser === null) return <Redirect to='/login' />;
 
   return (
     <Card

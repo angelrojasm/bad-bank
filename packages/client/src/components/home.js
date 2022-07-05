@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context";
+import React from "react";
+
 import { Card } from "./";
 import bank from "../images/bank.png";
 function Home() {
-  const ctx = useContext(UserContext);
   return (
     <>
-      {ctx.currentUser && <p>Hello, {ctx.currentUser.name}!</p>}
       <Card
         txtcolor='black'
         header='BadBank Site'

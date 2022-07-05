@@ -12,9 +12,9 @@ import { Provider } from "./context";
 function App() {
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Provider>
+      <Provider>
+        <NavBar />
+        <Switch>
           <div className='container' style={{ padding: "20px" }}>
             <Route path='/' exact component={Home} />
             <Route path='/CreateAccount/' component={CreateAccount} />
@@ -23,8 +23,8 @@ function App() {
             <Route path='/withdraw/' component={Withdraw} />
             <Route path='/alldata/' component={AllData} />
           </div>
-        </Provider>
-      </Switch>
+        </Switch>
+      </Provider>
     </BrowserRouter>
   );
 }
